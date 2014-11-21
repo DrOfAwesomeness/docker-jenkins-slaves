@@ -10,7 +10,10 @@ else
     chown -R build:build /home/build/.ssh
 fi
 echo "** Installing OpenSSH"
+apt-get update
 apt-get install -y --no-install-recommends openssh-server > /dev/null
+apt-get clean
+rm -rf /var/lib/apt/lists/*
 if [ -z "$SSHKEY" ]; then
     echo "** Allowing passworded root login"
     sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
